@@ -1,0 +1,10 @@
+{
+  "exec": "ts-node -r tsconfig-paths/register src/app.ts",
+  "ext": "ts json",
+  "restartable": "npm run dev",
+  "ignore": [
+    ".eslintrc.json",
+    "nodemon.json",
+    "tsconfig.json"
+  ]
+}
