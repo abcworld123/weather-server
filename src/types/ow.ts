@@ -1,88 +1,88 @@
 interface Weather {
   id: number;
   main: string;
-  icon: string;
   description: string;
+  icon: string;
 }
 
 interface Temp {
-  night: number;
-  min: number;
-  eve: number;
   day: number;
+  min: number;
   max: number;
+  night: number;
+  eve: number;
   morn: number;
 }
 
 interface FeelsLike {
+  day: number;
   night: number;
   eve: number;
-  day: number;
   morn: number;
 }
 
 interface Current {
   dt: number;
-  temp: number;
-  humidity: number;
   sunrise: number;
   sunset: number;
-  uvi: number;
-  wind_deg: number;
-  weather: Weather[];
+  temp: number;
   feels_like: number;
+  pressure: number;
+  humidity: number;
+  dew_point: number;
+  uvi: number;
   clouds: number;
   visibility: number;
   wind_speed: number;
-  pressure: number;
-  dew_point: number;
+  wind_deg: number;
+  weather: Weather[];
   rain: number;  // 내가 추가함
 }
 
 interface Hourly {
   dt: number;
   temp: number;
-  humidity: number;
-  uvi: number;
-  wind_deg: number;
-  wind_gust: number;
   feels_like: number;
+  pressure: number;
+  humidity: number;
+  dew_point: number;
+  uvi: number;
   clouds: number;
   visibility: number;
   wind_speed: number;
-  pressure: number;
-  dew_point: number;
+  wind_deg: number;
+  wind_gust: number;
   weather: Weather[];
   pop: number;
 }
 
 interface Daily {
-  pop: number;
   dt: number;
-  temp: Temp;
-  humidity: number;
   sunrise: number;
   sunset: number;
-  uvi: number;
+  moonrise: number;
+  moonset: number;
   moon_phase: number;
+  temp: Temp;
+  feels_like: FeelsLike;
+  pressure: number;
+  humidity: number;
+  dew_point: number;
+  wind_speed: number;
   wind_deg: number;
   wind_gust: number;
-  moonset: number;
-  feels_like: FeelsLike;
   weather: Weather[];
-  wind_speed: number;
-  pressure: number;
-  moonrise: number;
-  dew_point: number;
   clouds: number;
+  pop: number;
+  uvi: number;
 }
 
-export interface OpenWeather {
-  hourly: Hourly[];
-  current: Current;
-  timezone_offset: string;
-  daily: Daily[];
+export interface ResOwAll {
+  lat: number;
   lon: number;
   timezone: string;
-  lat: number;
+  timezone_offset: string;
+  current: Current;
+  hourly: Hourly[];
+  daily: Daily[];
 }

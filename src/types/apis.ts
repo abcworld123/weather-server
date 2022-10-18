@@ -1,4 +1,4 @@
-import type { OpenWeather } from './ow';
+import type { ResOwAll } from './ow';
 
 // get params, post body types
 
@@ -20,7 +20,7 @@ export interface ResDefault {
 }
 
 export interface ResWithOwGet extends ResDefault {
-  data?: OpenWeather[];
+  data?: ResOwAll[];
 }
 
 // export interface ResKmaGet extends ResDefault {

@@ -9,7 +9,7 @@ export type ResKmaDayNow = ResKmaApi<KmaDayNowData>;
 export type ResKmaDayShort = ResKmaApi<KmaDayShortData>;
 export type ResKmaDayLong = ResKmaApi<KmaDayLongData>;
 export type ResKmaWeekTa = ResKmaApi<KmaWeekTaData>;
-export type ResKmaWeekMl = ResKmaApi<KmaWeekLandData>;
+export type ResKmaWeekMl = ResKmaApi<KmaWeekMlData>;
 
 interface KmaDefaultParams {
   serviceKey: string;
@@ -62,13 +62,12 @@ interface KmaWeekDefault {
 
 // 초단기실황
 interface KmaDayNowData extends KmaDayDefault {
-  category: 'T1H' | 'RN1' | 'UUU' | 'VVV' | 'REH' | 'PTY' | 'VEC' | 'WSD';
+  category: 'PTY' | 'REH' | 'RN1' | 'T1H' | 'UUU' | 'VEC' | 'VVV' | 'WSD';
   obsrValue: string;
 }
-
 // 초단기예보
 interface KmaDayShortData extends KmaDayDefault {
-  category: 'T1H' | 'RN1' | 'SKY' | 'UUU' | 'VVV' | 'REH' | 'PTY' | 'LGT' | 'VEC' | 'WSD';
+  category: 'LGT' | 'PTY' | 'RN1' | 'SKY' | 'T1H' | 'REH' | 'UUU' | 'VVV' | 'VEC' | 'WSD';
   fcstDate: string;
   fcstTime: string;
   fcstValue: string;
@@ -76,44 +75,14 @@ interface KmaDayShortData extends KmaDayDefault {
 
 // 단기예보
 interface KmaDayLongData extends KmaDayDefault {
-  category: 'POP' | 'PTY' | 'PCP' | 'REH' | 'SNO' | 'SKY' | 'TMP' | 'TMN' | 'TMX' | 'UUU' | 'VVV' | 'WAV' | 'VEC' | 'WSD';
+  category: 'TMP' | 'UUU' | 'VVV' | 'VEC' | 'WSD' | 'SKY' | 'PTY' | 'POP' | 'WAV' | 'PCP' | 'REH' | 'SNO' | 'TMN' | 'TMX';
   fcstDate: string;
   fcstTime: string;
   fcstValue: string;
 }
 
-// 중기육상예보
-interface KmaWeekLandData {
-  rnSt3Am: number;
-  rnSt3Pm: number;
-  rnSt4Am: number;
-  rnSt4Pm: number;
-  rnSt5Am: number;
-  rnSt5Pm: number;
-  rnSt6Am: number;
-  rnSt6Pm: number;
-  rnSt7Am: number;
-  rnSt7Pm: number;
-  rnSt8: number;
-  rnSt9: number;
-  rnSt10: number;
-  wf3Am: string;
-  wf3Pm: string;
-  wf4Am: string;
-  wf4Pm: string;
-  wf5Am: string;
-  wf5Pm: string;
-  wf6Am: string;
-  wf6Pm: string;
-  wf7Am: string;
-  wf7Pm: string;
-  wf8: string;
-  wf9: string;
-  wf10: string;
-}
-
 // 중기기온예보
-interface KmaWeekTaData {
+interface KmaWeekTaData extends KmaWeekDefault {
   taMin3: number;
   taMin3Low: number;
   taMin3High: number;
@@ -162,6 +131,36 @@ interface KmaWeekTaData {
   taMax10: number;
   taMax10Low: number;
   taMax10High: number;
+}
+
+// 중기육상예보
+interface KmaWeekMlData extends KmaWeekDefault {
+  rnSt3Am: number;
+  rnSt3Pm: number;
+  rnSt4Am: number;
+  rnSt4Pm: number;
+  rnSt5Am: number;
+  rnSt5Pm: number;
+  rnSt6Am: number;
+  rnSt6Pm: number;
+  rnSt7Am: number;
+  rnSt7Pm: number;
+  rnSt8: number;
+  rnSt9: number;
+  rnSt10: number;
+  wf3Am: string;
+  wf3Pm: string;
+  wf4Am: string;
+  wf4Pm: string;
+  wf5Am: string;
+  wf5Pm: string;
+  wf6Am: string;
+  wf6Pm: string;
+  wf7Am: string;
+  wf7Pm: string;
+  wf8: string;
+  wf9: string;
+  wf10: string;
 }
 
 // response code
