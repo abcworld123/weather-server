@@ -1,7 +1,6 @@
 import http from 'http';
 import compression from 'compression';
 import express from 'express';
-import { dbConnect } from 'libs';
 import router from 'routes';
 
 const app = express();
@@ -11,8 +10,6 @@ app.use(compression());
 app.use(express.static(__dirname + '/public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-dbConnect();
 
 app.use('/', router);
 
@@ -35,6 +32,6 @@ server.on('error', (err) => {
   console.error(`\x1B[31mERROR\x1B[0m | ${err.stack}`);
 });
 
-server.listen(3001, () => {
+server.listen(8400, () => {
   console.info('\x1B[36mconnected!!\x1B[0m');
 });
