@@ -3,14 +3,14 @@ dotenv.config();
 
 const config = {
   database: {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    database: process.env.DB_DATABASE,
-    user: process.env.DB_USER,
-    pass: process.env.DB_PASS,
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DATABASE,
   },
-  weather: {
-    key: process.env.WEATHER_KEY,
+  key: {
+    kma: process.env.KEY_KMA,
+    ow: process.env.KEY_OW,
   },
 };
 
