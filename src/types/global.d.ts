@@ -15,6 +15,8 @@ declare global {
       MYSQL_USER: string;
       MYSQL_PASSWORD: string;
       MYSQL_DATABASE: string;
+      TA_REG: string;
+      ML_REG: string;
     }
   }
   // express

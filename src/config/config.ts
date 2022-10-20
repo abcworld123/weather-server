@@ -12,6 +12,10 @@ const config = {
     kma: process.env.KEY_KMA,
     ow: process.env.KEY_OW,
   },
+  reg: {
+    ta: process.env.TA_REG,
+    ml: process.env.ML_REG,
+  },
 };
 
 export default config;

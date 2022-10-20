@@ -28,6 +28,6 @@ export function addDay(_date: string, amount: number) {
   const _month = _date.slice(4, 6);
   const _day = _date.slice(6, 8);
   _date = `${_year}-${_month}-${_day}`;
-  const date = new Date(new Date(_date).getTime() + (dayMs * amount)).toISOString().replace('-', '').slice(0, 8);
+  const date = new Date(new Date(_date).getTime() + (dayMs * amount)).toISOString().replaceAll('-', '').slice(0, 8);
   return date;
 }

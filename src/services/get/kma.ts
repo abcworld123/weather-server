@@ -95,7 +95,8 @@ export async function getWeekTa(regId: string) {
   };
   try {
     const { data } = await axios.get<ResKmaWeekTa>(url, { params });
-    const item = data.response.body.items.item;
+    const item = data.response.body.items.item[0];
+    item.date = baseDate;
     return { success: true, data: item };
   } catch (err) {
     logError('KmaWeekTa', err);
@@ -114,7 +115,14 @@ export async function getWeekMl(regId: string) {
   };
   try {
     const { data } = await axios.get<ResKmaWeekMl>(url, { params });
-    const item = data.response.body.items.item;
+    const item = data.response.body.items.item[0];
+    item.date = baseDate;
+    for (let i = 8; i <= 10; ++i) {
+      item[`rnSt${i}Am`] = item[`rnSt${i}`];
+      item[`rnSt${i}Pm`] = item[`rnSt${i}`];
+      item['wf{i}Am'] = item[`wf${i}`];
+      item['wf{i}Pm'] = item[`wf${i}`];
+    }
     return { success: true, data: item };
   } catch (err) {
     logError('KmaWeekMl', err);

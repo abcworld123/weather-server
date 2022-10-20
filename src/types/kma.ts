@@ -58,6 +58,7 @@ interface KmaDayDefault {
 
 interface KmaWeekDefault {
   regId: string;
+  date: string;  // 내가 추가함
 }
 
 // 초단기실황
@@ -145,6 +146,12 @@ interface KmaWeekMlData extends KmaWeekDefault {
   rnSt6Pm: number;
   rnSt7Am: number;
   rnSt7Pm: number;
+  rnSt8Am: number;  // 내가 추가함
+  rnSt8Pm: number;  // 내가 추가함
+  rnSt9Am: number;  // 내가 추가함
+  rnSt9Pm: number;  // 내가 추가함
+  rnSt10Am: number;  // 내가 추가함
+  rnSt10Pm: number;  // 내가 추가함
   rnSt8: number;
   rnSt9: number;
   rnSt10: number;
