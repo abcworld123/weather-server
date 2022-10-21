@@ -7,6 +7,7 @@ import type { ResultSetHeader } from 'mysql2';
 import type { DayNow } from 'types/db';
 
 export default async function updateDayNow() {
+  const conn = await pool.getConnection();
   try {
     const [date, time] = getDateTime('0000', '0100', '0030');
     const dt = date + time;
@@ -19,7 +20,6 @@ export default async function updateDayNow() {
       if (!data[dt]) data[dt] = {};
       data[dt][cate] = x.obsrValue;
     }
-    const conn = await pool.getConnection();
     await conn.beginTransaction();
     for (const [dt, e] of Object.entries(data)) {
       const [rows, fields] = await conn.execute<ResultSetHeader>('UPDATE `hourly` SET POP=?, PTY=?, REH=?, TMP=?, WSD=? WHERE dt=?', [e.RN1, e.PTY, e.REH, e.T1H, e.WSD, dt]);
@@ -28,9 +28,10 @@ export default async function updateDayNow() {
       }
     }
     await conn.commit();
-    conn.release();
   } catch (err) {
     logError('updateDayNow', err);
+  } finally {
+    conn.release();
   }
 }
 

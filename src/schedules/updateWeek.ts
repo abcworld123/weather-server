@@ -6,6 +6,7 @@ import { logError } from 'utils/logger';
 import type { ResultSetHeader } from 'mysql2';
 
 export default async function updateWeek() {
+  const conn = await pool.getConnection();
   try {
     const ta = await getWeekTa(taReg);
     const ml = await getWeekMl(mlReg);
@@ -14,7 +15,6 @@ export default async function updateWeek() {
     const today = ta.data.date;
     const dates = Array.from({ length: 7 }, (v, k) => addDay(today, k + 3));
 
-    const conn = await pool.getConnection();
     await conn.beginTransaction();
     for (let i = 3; i < 7; ++i) {
       const poa = ml.data[`rnSt${i}Am`];
@@ -29,9 +29,10 @@ export default async function updateWeek() {
       }
     }
     await conn.commit();
-    conn.release();
   } catch (err) {
     logError('updateWeek', err);
+  } finally {
+    conn.release();
   }
 }
 

@@ -6,6 +6,7 @@ import type { ResultSetHeader } from 'mysql2';
 import type { DayLong } from 'types/db';
 
 export default async function updateDayLong() {
+  const conn = await pool.getConnection();
   try {
     const res = await getDayLong(nx, ny);
     if (!res.success) throw new Error('long get failed');
@@ -40,7 +41,6 @@ export default async function updateDayLong() {
         data[dt][cate] = x.fcstValue;
       }
     }
-    const conn = await pool.getConnection();
     await conn.beginTransaction();
     for (const [dt, e] of Object.entries(data)) {
       const [rows, fields] = await conn.execute<ResultSetHeader>('UPDATE `hourly` SET PCP=?, POP=?, PTY=?, REH=?, SKY=?, SNO=?, TMP=?, WSD=? WHERE dt=?', [e.PCP, e.POP, e.PTY, e.REH, e.SKY, e.SNO, e.TMP, e.WSD, dt]);
@@ -49,9 +49,10 @@ export default async function updateDayLong() {
       }
     }
     await conn.commit();
-    conn.release();
   } catch (err) {
     logError('updateDayLong', err);
+  } finally {
+    conn.release();
   }
 }
 

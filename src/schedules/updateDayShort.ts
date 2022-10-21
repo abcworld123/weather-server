@@ -6,9 +6,9 @@ import type { ResultSetHeader } from 'mysql2';
 import type { DayShort } from 'types/db';
 
 export default async function updateDayShort() {
+  const conn = await pool.getConnection();
   try {
     const res = await getDayShort(nx, ny);
-    console.log(res);
     if (!res.success) throw new Error('short get failed');
     const data: Record<string, DayShort> = {};
     for (const x of res.data) {
@@ -28,7 +28,6 @@ export default async function updateDayShort() {
         data[dt][cate] = x.fcstValue;
       }
     }
-    const conn = await pool.getConnection();
     await conn.beginTransaction();
     for (const [dt, e] of Object.entries(data)) {
       const [rows, fields] = await conn.execute<ResultSetHeader>('UPDATE `hourly` SET LGT=?, PCP=?, PTY=?, REH=?, SKY=?, TMP=?, WSD=? WHERE dt=?', [e.LGT, e.RN1, e.PTY, e.REH, e.SKY, e.T1H, e.WSD, dt]);
@@ -37,9 +36,10 @@ export default async function updateDayShort() {
       }
     }
     await conn.commit();
-    conn.release();
   } catch (err) {
     logError('updateDayShort', err);
+  } finally {
+    conn.release();
   }
 }
 
