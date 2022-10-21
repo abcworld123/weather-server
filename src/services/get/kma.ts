@@ -15,7 +15,7 @@ import type {
 const baseUrl = 'http://apis.data.go.kr/1360000/';
 const serviceKey = config.key.kma;
 
-export async function getDayNow(nx: number, ny: number) {
+export async function getDayNow(nx: string, ny: string) {
   const url = baseUrl + 'VilageFcstInfoService_2.0/getUltraSrtNcst';
   const [baseDate, baseTime] = getDateTime('0000', '0100', '0030');
   const params: KmaDayParams = {
@@ -38,7 +38,7 @@ export async function getDayNow(nx: number, ny: number) {
   }
 }
 
-export async function getDayShort(nx: number, ny: number) {
+export async function getDayShort(nx: string, ny: string) {
   const url = baseUrl + 'VilageFcstInfoService_2.0/getUltraSrtFcst';
   const [baseDate, baseTime] = getDateTime('0030', '0100', '0100');
   const params: KmaDayParams = {
@@ -61,7 +61,7 @@ export async function getDayShort(nx: number, ny: number) {
   }
 }
 
-export async function getDayLong(nx: number, ny: number) {
+export async function getDayLong(nx: string, ny: string) {
   const url = baseUrl + 'VilageFcstInfoService_2.0/getVilageFcst';
   const [baseDate, baseTime] = getDateTime('0200', '0300', '0000');
   const params: KmaDayParams = {

@@ -13,6 +13,8 @@ const config = {
     ow: process.env.KEY_OW,
   },
   reg: {
+    nx: process.env.NX,
+    ny: process.env.NY,
     ta: process.env.TA_REG,
     ml: process.env.ML_REG,
   },
