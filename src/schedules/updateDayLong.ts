@@ -41,14 +41,14 @@ export default async function updateDayLong() {
       }
     }
     const conn = await pool.getConnection();
-    conn.beginTransaction();
+    await conn.beginTransaction();
     for (const [dt, e] of Object.entries(data)) {
       const [rows, fields] = await conn.execute<ResultSetHeader>('UPDATE `hourly` SET PCP=?, POP=?, PTY=?, REH=?, SKY=?, SNO=?, TMP=?, WSD=? WHERE dt=?', [e.PCP, e.POP, e.PTY, e.REH, e.SKY, e.SNO, e.TMP, e.WSD, dt]);
       if (rows.affectedRows === 0) {
         const [rows, fields] = await conn.execute<ResultSetHeader>('INSERT INTO `hourly` (dt, PCP, POP, PTY, REH, SKY, SNO, TMP, WSD) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [dt, e.PCP, e.POP, e.PTY, e.REH, e.SKY, e.SNO, e.TMP, e.WSD]);
       }
     }
-    conn.commit();
+    await conn.commit();
     conn.release();
   } catch (err) {
     logError('updateDayLong', err);

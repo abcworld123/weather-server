@@ -15,7 +15,7 @@ export default async function updateWeek() {
     const dates = Array.from({ length: 7 }, (v, k) => addDay(today, k + 3));
 
     const conn = await pool.getConnection();
-    conn.beginTransaction();
+    await conn.beginTransaction();
     for (let i = 3; i < 7; ++i) {
       const poa = ml.data[`rnSt${i}Am`];
       const pop = ml.data[`rnSt${i}Pm`];
@@ -28,7 +28,7 @@ export default async function updateWeek() {
         const [rows, fields] = await conn.execute<ResultSetHeader>('INSERT INTO `daily` VALUES (?, ?, ?, ?, ?, ?, ?)', [dates[i - 3], poa, pop, ska, skp, tmn, tmx]);
       }
     }
-    conn.commit();
+    await conn.commit();
     conn.release();
   } catch (err) {
     logError('updateWeek', err);

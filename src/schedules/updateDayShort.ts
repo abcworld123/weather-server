@@ -29,14 +29,14 @@ export default async function updateDayShort() {
       }
     }
     const conn = await pool.getConnection();
-    conn.beginTransaction();
+    await conn.beginTransaction();
     for (const [dt, e] of Object.entries(data)) {
       const [rows, fields] = await conn.execute<ResultSetHeader>('UPDATE `hourly` SET LGT=?, PCP=?, PTY=?, REH=?, SKY=?, TMP=?, WSD=? WHERE dt=?', [e.LGT, e.RN1, e.PTY, e.REH, e.SKY, e.T1H, e.WSD, dt]);
       if (rows.affectedRows === 0) {
         const [rows, fields] = await conn.execute<ResultSetHeader>('INSERT INTO `hourly` (dt, LGT, PCP, PTY, REH, SKY, TMP, WSD) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [dt, e.LGT, e.RN1, e.PTY, e.REH, e.SKY, e.T1H, e.WSD]);
       }
     }
-    conn.commit();
+    await conn.commit();
     conn.release();
   } catch (err) {
     logError('updateDayShort', err);
