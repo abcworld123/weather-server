@@ -20,9 +20,13 @@ export default async function getWithOw(lat: string, lon: string) {
       ow.wind_speed = parseFloat(kma.WSD);
       ow.weather[0].id = parseInt(kma.SKY + kma.PTY);
       ow.rain = parseFloat(kma.PCP);
+      data.hourly[0].temp = ow.temp;
+      data.hourly[0].humidity = ow.humidity;
+      data.hourly[0].wind_speed = ow.wind_speed;
+      data.hourly[0].weather[0].id = ow.weather[0].id;
     }
-    for (let i = 1; i < Math.min(data.hourly.length + 1, rowsH.length); ++i) {
-      const ow = data.hourly[i - 1];
+    for (let i = 1; i < Math.min(data.hourly.length, rowsH.length); ++i) {
+      const ow = data.hourly[i];
       const kma = rowsH[i];
       ow.temp = parseInt(kma.TMP);
       ow.humidity = parseInt(kma.REH);
