@@ -15,7 +15,7 @@ export async function getWithOw(lat: number, lon: number) {
     {
       const ow = data.current;
       const kma = rowsH[0];
-      ow.temp = parseInt(kma.TMP);
+      ow.temp = parseFloat(kma.TMP);
       ow.humidity = parseInt(kma.REH);
       ow.wind_speed = parseFloat(kma.WSD);
       ow.weather[0].id = parseInt(kma.SKY + kma.PTY);
