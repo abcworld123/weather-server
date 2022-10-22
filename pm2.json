@@ -2,7 +2,7 @@
   "apps": [
       {
           "name": "weather-server",
-          "script": "ts-node -r tsconfig-paths/register app.ts",
+          "script": "ts-node -r tsconfig-paths/register src/app.ts",
           "env": {
               "NODE_ENV": "production"
           },
