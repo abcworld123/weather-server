@@ -40,7 +40,7 @@ export async function getDayNow(nx: string, ny: string) {
 
 export async function getDayShort(nx: string, ny: string) {
   const url = baseUrl + 'VilageFcstInfoService_2.0/getUltraSrtFcst';
-  const [baseDate, baseTime] = getDateTime('0030', '0100', '0100');
+  const [baseDate, baseTime] = getDateTime('0030', '0100', '0000');
   const params: KmaDayParams = {
     serviceKey,
     pageNo: 1,
@@ -120,8 +120,8 @@ export async function getWeekMl(regId: string) {
     for (let i = 8; i <= 10; ++i) {
       item[`rnSt${i}Am`] = item[`rnSt${i}`];
       item[`rnSt${i}Pm`] = item[`rnSt${i}`];
-      item['wf{i}Am'] = item[`wf${i}`];
-      item['wf{i}Pm'] = item[`wf${i}`];
+      item[`wf${i}Am`] = item[`wf${i}`];
+      item[`wf${i}Pm`] = item[`wf${i}`];
     }
     return { success: true, data: item };
   } catch (err) {

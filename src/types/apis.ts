@@ -20,7 +20,7 @@ export interface ResDefault {
 }
 
 export interface ResWithOwGet extends ResDefault {
-  data?: ResOwAll[];
+  data?: ResOwAll;
 }
 
 // export interface ResKmaGet extends ResDefault {
