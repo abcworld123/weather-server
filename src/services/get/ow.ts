@@ -6,7 +6,7 @@ import type { ResOwAll } from 'types/ow';
 const url = 'https://api.openweathermap.org/data/2.5/onecall';
 const appid = config.key.ow;
 
-export async function getAll(lat: number, lon: number) {
+export async function getAll(lat: string, lon: string) {
   const params = {
     lat,
     lon,

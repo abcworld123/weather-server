@@ -4,7 +4,7 @@ import { getDateTime } from 'utils/datetime';
 import { logError } from 'utils/logger';
 import type { Daily, Hourly } from 'types/db';
 
-export async function getWithOw(lat: number, lon: number) {
+export default async function getWithOw(lat: string, lon: string) {
   const conn = await pool.getConnection();
   try {
     const [date, time] = getDateTime('0000', '0100', '0000');

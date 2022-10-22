@@ -6,8 +6,8 @@ import type { ResOwAll } from './ow';
 // request types
 export interface ReqScriptableGet {
   query: {
-    lat: number;
-    lon: number;
+    lat: string;
+    lon: string;
     time: string;
     withOw: boolean;
   };
