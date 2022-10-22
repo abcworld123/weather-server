@@ -1,9 +1,5 @@
 import type { ResDefault } from 'types/apis';
 
-export interface ResWeather extends ResDefault {
-  data?: number[];
-}
-
 // responses
 export type ResKmaDayNow = ResKmaApi<KmaDayNowData>;
 export type ResKmaDayShort = ResKmaApi<KmaDayShortData>;
