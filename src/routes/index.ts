@@ -3,6 +3,6 @@ import scriptable from './scriptable';
 
 const router = express.Router();
 
-router.get('/scriptable', scriptable);
+router.use('/scriptable', scriptable);
 
 export default router;
