@@ -2,9 +2,12 @@ import http from 'http';
 import compression from 'compression';
 import express from 'express';
 import router from 'routes';
+import runScheduleJobs from 'schedules';
 
 const app = express();
 const server = http.createServer(app);
+
+runScheduleJobs();
 
 app.use(compression());
 app.use(express.static(__dirname + '/public'));
