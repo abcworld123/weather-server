@@ -13,10 +13,10 @@ export default async function updateWeek() {
     if (!ta.success) throw new Error('ta get failed');
     if (!ml.success) throw new Error('ml get failed');
     const today = ta.data.date;
-    const dates = Array.from({ length: 7 }, (v, k) => addDay(today, k + 3));
+    const dates = Array.from({ length: 8 }, (v, k) => addDay(today, k + 3));
 
     await conn.beginTransaction();
-    for (let i = 3; i < 7; ++i) {
+    for (let i = 3; i <= 10; ++i) {
       const poa = ml.data[`rnSt${i}Am`];
       const pop = ml.data[`rnSt${i}Pm`];
       const ska = skyCode[ml.data[`wf${i}Am`]];

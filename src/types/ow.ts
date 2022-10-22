@@ -3,6 +3,8 @@ interface Weather {
   main: string;
   description: string;
   icon: string;
+  ska: number;  // 내가 추가함
+  skp: number;  // 내가 추가함
 }
 
 interface Temp {

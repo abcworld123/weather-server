@@ -20,11 +20,13 @@ export default async function updateDayNow() {
       if (!data[dt]) data[dt] = {};
       data[dt][cate] = x.obsrValue;
     }
+    const [_date, _time] = getDateTime('0000', '0100', '0000');
+    const _dt = _date + _time;
     await conn.beginTransaction();
-    for (const [dt, e] of Object.entries(data)) {
-      const [rows, fields] = await conn.execute<ResultSetHeader>('UPDATE `hourly` SET POP=?, PTY=?, REH=?, TMP=?, WSD=? WHERE dt=?', [e.RN1, e.PTY, e.REH, e.T1H, e.WSD, dt]);
+    for (const e of Object.values(data)) {
+      const [rows, fields] = await conn.execute<ResultSetHeader>('UPDATE `hourly` SET POP=?, PTY=?, REH=?, TMP=?, WSD=? WHERE dt=?', [e.RN1, e.PTY, e.REH, e.T1H, e.WSD, _dt]);
       if (rows.affectedRows === 0) {
-        const [rows, fields] = await conn.execute<ResultSetHeader>('INSERT INTO `hourly` (dt, POP, PTY, REH, TMP, WSD) VALUES (?, ?, ?, ?, ?, ?)', [dt, e.RN1, e.PTY, e.REH, e.T1H, e.WSD]);
+        const [rows, fields] = await conn.execute<ResultSetHeader>('INSERT INTO `hourly` (dt, POP, PTY, REH, TMP, WSD) VALUES (?, ?, ?, ?, ?, ?)', [_dt, e.RN1, e.PTY, e.REH, e.T1H, e.WSD]);
       }
     }
     await conn.commit();
