@@ -7,11 +7,11 @@ import type { Daily, Hourly } from 'types/db';
 export default async function getWithOw(lat: string, lon: string) {
   const conn = await pool.getConnection();
   try {
-    const [date, time] = getDateTime('0000', '0100', '0000');
+    const { dt, d: date } = getDateTime('0000', '0100', '0000');
     const { data, success } = await getAll(lat, lon);
     if (!success) throw new Error('ow get error');
 
-    const [rowsH, fieldsH] = await conn.execute<Hourly[]>('SELECT * FROM `hourly` WHERE dt >= ?', [date + time]);
+    const [rowsH, fieldsH] = await conn.execute<Hourly[]>('SELECT * FROM `hourly` WHERE dt >= ?', [dt]);
     {
       const ow = data.current;
       const kma = rowsH[0];

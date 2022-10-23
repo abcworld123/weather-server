@@ -16,8 +16,8 @@ export default function runScheduleJobs() {
 }
 
 async function runDay() {
-  const [dNow, tNow] = getDateTime('0000', '0100', '0030');
-  getDayVer(dNow + tNow, 'ODAM').then(async (ver) => {
+  const { dt: dtNow } = getDateTime('0000', '0100', '0030');
+  getDayVer(dtNow, 'ODAM').then(async (ver) => {
     if (ver !== verNow) {
       if (ver === null) {
         logError('runDayNow', 'ver check failed');
@@ -30,8 +30,8 @@ async function runDay() {
     }
   });
 
-  const [dShort, tShort] = getDateTime('0030', '0100', '0000');
-  getDayVer(dShort + tShort, 'VSRT').then(async (ver) => {
+  const { dt: dtShort } = getDateTime('0030', '0100', '0000');
+  getDayVer(dtShort, 'VSRT').then(async (ver) => {
     if (ver !== verShort) {
       if (ver === null) {
         logError('runDayShort', 'ver check failed');
@@ -44,8 +44,8 @@ async function runDay() {
     }
   });
 
-  const [dLong, tLong] = getDateTime('0200', '0300', '0000');
-  getDayVer(dLong + tLong, 'SHRT').then(async (ver) => {
+  const { dt: dtLong } = getDateTime('0200', '0300', '0000');
+  getDayVer(dtLong, 'SHRT').then(async (ver) => {
     if (ver !== verLong) {
       if (ver === null) {
         logError('runDayLong', 'ver check failed');

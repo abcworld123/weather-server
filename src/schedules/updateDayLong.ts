@@ -61,10 +61,10 @@ export default async function updateDayLong() {
         skp[date] = maxSky(skp[date], e.SKY + e.PTY);
       }
     }
-    const [dNow, tNow] = getDateTime('0000', '0001', '0000');
+    const { d: dNow, t: tNow } = getDateTime('0000', '0001', '0000');
     const offset = tNow.slice(2, 4) < '30' ? 0 : 1;  // is ge than half minutes
     const shorts = ['-0000', '-0100', '-0200', '-0300', '-0400', '-0500', '-0600'];
-    const excludeShorts = shorts.slice(offset, 6 + offset).map(t => getDateTime('0000', '0100', t)).map(([d, t]) => d + t);
+    const excludeShorts = shorts.slice(offset, 6 + offset).map(t => getDateTime('0000', '0100', t)).map(({ d, t }) => d + t);
 
     await conn.beginTransaction();
     for (const [dt, e] of Object.entries(data)) {

@@ -19,7 +19,7 @@ const serviceKey = config.key.kma;
 
 export async function getDayNow(nx: string, ny: string) {
   const url = baseUrl + 'VilageFcstInfoService_2.0/getUltraSrtNcst';
-  const [baseDate, baseTime] = getDateTime('0000', '0100', '0030');
+  const { d: baseDate, t: baseTime } = getDateTime('0000', '0100', '0030');
   const params: KmaDayParams = {
     serviceKey,
     pageNo: 1,
@@ -42,7 +42,7 @@ export async function getDayNow(nx: string, ny: string) {
 
 export async function getDayShort(nx: string, ny: string) {
   const url = baseUrl + 'VilageFcstInfoService_2.0/getUltraSrtFcst';
-  const [baseDate, baseTime] = getDateTime('0030', '0100', '0000');
+  const { d: baseDate, t: baseTime } = getDateTime('0030', '0100', '0000');
   const params: KmaDayParams = {
     serviceKey,
     pageNo: 1,
@@ -65,7 +65,7 @@ export async function getDayShort(nx: string, ny: string) {
 
 export async function getDayLong(nx: string, ny: string) {
   const url = baseUrl + 'VilageFcstInfoService_2.0/getVilageFcst';
-  const [baseDate, baseTime] = getDateTime('0200', '0300', '0000');
+  const { d: baseDate, t: baseTime } = getDateTime('0200', '0300', '0000');
   const params: KmaDayParams = {
     serviceKey,
     pageNo: 1,
@@ -108,12 +108,12 @@ export async function getDayVer(dt: string, ftype: 'ODAM' | 'VSRT' | 'SHRT') {
 
 export async function getWeekTa(regId: string) {
   const url = baseUrl + 'MidFcstInfoService/getMidTa';
-  const [baseDate, baseTime] = getDateTime('0600', '1200', '0000');
+  const { dt: tmFc, d: baseDate } = getDateTime('0600', '1200', '0000');
   const params: KmaWeekParams = {
     serviceKey,
     dataType: 'json',
     regId,
-    tmFc: baseDate + baseTime,
+    tmFc,
   };
   try {
     const { data } = await axios.get<ResKmaWeekTa>(url, { params });
@@ -128,12 +128,12 @@ export async function getWeekTa(regId: string) {
 
 export async function getWeekMl(regId: string) {
   const url = baseUrl + 'MidFcstInfoService/getMidLandFcst';
-  const [baseDate, baseTime] = getDateTime('0600', '1200', '0000');
+  const { dt: tmFc, d: baseDate } = getDateTime('0600', '1200', '0000');
   const params: KmaWeekParams = {
     serviceKey,
     dataType: 'json',
     regId,
-    tmFc: baseDate + baseTime,
+    tmFc,
   };
   try {
     const { data } = await axios.get<ResKmaWeekMl>(url, { params });

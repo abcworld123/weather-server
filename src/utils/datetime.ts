@@ -5,7 +5,7 @@ function hourMinToSec(hhmm: string) {
   return hourSec + minSec;
 }
 
-export function getDateTime(_offset: string, _interval: string, _delay: string): [date: string, time: string] {
+export function getDateTime(_offset: string, _interval: string, _delay: string) {
   let ms = Date.now();
   const utcOffset = 32400000;
   const offset = hourMinToSec(_offset);
@@ -20,7 +20,12 @@ export function getDateTime(_offset: string, _interval: string, _delay: string):
   const datetime = new Date(ms).toISOString().replace(/[T\-:]|\..+/g, '').slice(0, 12);
   const date = datetime.slice(0, 8);
   const time = datetime.slice(8, 12);
-  return [date, time];
+  const ret = {
+    dt: datetime,
+    d: date,
+    t: time,
+  };
+  return ret;
 }
 
 export function addDay(_date: string, amount: number) {
