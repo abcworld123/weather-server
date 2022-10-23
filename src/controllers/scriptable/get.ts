@@ -18,8 +18,7 @@ export default async function controller(req: Request<ReqScriptableGet>, res: Re
   } else {
     data = await getOnlyOw(lat, lon);
   }
-  const regionName = (await getRegionName(lat, lon)).address_name;
-  data.data.region = regionName;
+  data.data.region = await getRegionName(lat, lon);
   res.json(data);
 }
 
