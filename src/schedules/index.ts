@@ -5,6 +5,7 @@ import updateDayShort from 'schedules/updateDayShort';
 import updateWeek from 'schedules/updateWeek';
 import { getDayVer } from 'services/get/kma';
 import { getDateTime, getLogDateTime } from 'utils/datetime';
+import { sleep } from 'utils/tools';
 
 let verNow = '';
 let verShort = '';
@@ -60,9 +61,16 @@ async function runDay() {
 }
 
 async function runWeek() {
-  const success = await updateWeek();
-  if (success) logInfo('runWeek', 'success');
-  else logError('runWeek', 'failed');
+  let success = false;
+  while (!success) {
+    success = await updateWeek();
+    if (success) {
+      logInfo('runWeek', 'success');
+    } else {
+      logError('runWeek', 'failed');
+      await sleep(60000);
+    }
+  }
 }
 
 function logInfo(title: string, msg: string) {
