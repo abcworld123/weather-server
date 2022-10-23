@@ -19,6 +19,7 @@ export default async function getWithOw(lat: string, lon: string) {
       ow.humidity = parseInt(kma.REH);
       ow.wind_speed = parseFloat(kma.WSD);
       ow.weather[0].id = parseInt(kma.SKY + kma.PTY);
+      ow.weather[0].description = description[ow.weather[0].id];
       ow.rain = parseFloat(kma.PCP);
       data.hourly[0].temp = ow.temp;
       data.hourly[0].humidity = ow.humidity;
@@ -56,3 +57,23 @@ export default async function getWithOw(lat: string, lon: string) {
     conn.release();
   }
 }
+
+const description = {
+  '10': '맑음',
+  '30': '구름 많음',
+  '40': '흐림',
+  '35': '빗방울',
+  '45': '빗방울',
+  '37': '눈날림',
+  '47': '눈날림',
+  '36': '빗방울 눈날림',
+  '46': '빗방울 눈날림',
+  '34': '소나기',
+  '44': '소나기',
+  '31': '비',
+  '41': '비',
+  '33': '눈',
+  '43': '눈',
+  '32': '비 / 눈',
+  '42': '비 / 눈',
+};
