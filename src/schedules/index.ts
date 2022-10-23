@@ -1,4 +1,5 @@
 import { scheduleJob } from 'node-schedule';
+import moveNowToShort from 'schedules/moveNowToShort';
 import updateDayLong from 'schedules/updateDayLong';
 import updateDayNow from 'schedules/updateDayNow';
 import updateDayShort from 'schedules/updateDayShort';
@@ -14,6 +15,7 @@ let verLong = '';
 export default function runScheduleJobs() {
   scheduleJob('1 */1 * * * *', runDay);
   scheduleJob('1 0 */6 * * *', runWeek);
+  scheduleJob('0 0 */1 * * *', moveNowToShort);
 }
 
 async function runDay() {
