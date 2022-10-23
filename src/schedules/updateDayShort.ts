@@ -1,6 +1,7 @@
 import config from 'config';
 import { pool } from 'libs/db';
 import { getDayShort } from 'services/get/kma';
+import { getDateTime } from 'utils/datetime';
 import { logError } from 'utils/logger';
 import type { ResultSetHeader } from 'mysql2';
 import type { DayShort } from 'types/db';
@@ -28,9 +29,11 @@ export default async function updateDayShort() {
         data[dt][cate] = x.fcstValue;
       }
     }
+    const { dt: dtNow } = getDateTime('0000', '0100', '0000');
     await conn.beginTransaction();
     for (const [dt, e] of Object.entries(data)) {
-      const [rows, fields] = await conn.execute<ResultSetHeader>('UPDATE `hourly` SET LGT=?, PCP=?, PTY=?, REH=?, SKY=?, TMP=?, WSD=? WHERE dt=?', [e.LGT, e.RN1, e.PTY, e.REH, e.SKY, e.T1H, e.WSD, dt]);
+      if (dt === dtNow) { e.RN1 = null; e.PTY = null; e.REH = null; e.T1H = null; e.WSD = null; }
+      const [rows, fields] = await conn.execute<ResultSetHeader>('UPDATE `hourly` SET LGT=?, PCP=COALESCE(?, PCP), PTY=COALESCE(?, PTY), REH=COALESCE(?, REH), SKY=?, TMP=COALESCE(?, TMP), WSD=COALESCE(?, WSD) WHERE dt=?', [e.LGT, e.RN1, e.PTY, e.REH, e.SKY, e.T1H, e.WSD, dt]);
       if (rows.affectedRows === 0) {
         const [rows, fields] = await conn.execute<ResultSetHeader>('INSERT INTO `hourly` (dt, LGT, PCP, PTY, REH, SKY, TMP, WSD) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [dt, e.LGT, e.RN1, e.PTY, e.REH, e.SKY, e.T1H, e.WSD]);
       }
