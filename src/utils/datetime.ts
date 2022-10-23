@@ -1,6 +1,7 @@
 function hourMinToSec(hhmm: string) {
-  const hourSec = parseInt(hhmm.slice(0, 2)) * 3600000;
-  const minSec = parseInt(hhmm.slice(2, 4)) * 60000;
+  const isNeg = hhmm[0] === '-' ? 1 : 0;
+  const hourSec = parseInt(hhmm.slice(0, 2 + isNeg)) * 3600000;
+  const minSec = parseInt(hhmm.slice(2 + isNeg, hhmm.length)) * 60000;
   return hourSec + minSec;
 }
 

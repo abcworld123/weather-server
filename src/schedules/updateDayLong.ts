@@ -61,16 +61,21 @@ export default async function updateDayLong() {
         skp[date] = maxSky(skp[date], e.SKY + e.PTY);
       }
     }
+    const [dNow, tNow] = getDateTime('0000', '0001', '0000');
+    const offset = tNow.slice(2, 4) < '30' ? 0 : 1;  // is ge than half minutes
+    const shorts = ['-0000', '-0100', '-0200', '-0300', '-0400', '-0500', '-0600'];
+    const excludeShorts = shorts.slice(offset, 6 + offset).map(t => getDateTime('0000', '0100', t)).map(([d, t]) => d + t);
+
     await conn.beginTransaction();
     for (const [dt, e] of Object.entries(data)) {
+      if (excludeShorts.includes(dt)) continue;
       const [rows, fields] = await conn.execute<ResultSetHeader>('UPDATE `hourly` SET PCP=?, POP=?, PTY=?, REH=?, SKY=?, SNO=?, TMP=?, WSD=? WHERE dt=?', [e.PCP, e.POP, e.PTY, e.REH, e.SKY, e.SNO, e.TMP, e.WSD, dt]);
       if (rows.affectedRows === 0) {
         const [rows, fields] = await conn.execute<ResultSetHeader>('INSERT INTO `hourly` (dt, PCP, POP, PTY, REH, SKY, SNO, TMP, WSD) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [dt, e.PCP, e.POP, e.PTY, e.REH, e.SKY, e.SNO, e.TMP, e.WSD]);
       }
     }
-    const [today, _] = getDateTime('0000', '0001', '0000');
     for (let i = 0; i < 3; i++) {
-      const date = addDay(today, i);
+      const date = addDay(dNow, i);
       const [rows, fields] = await conn.execute<ResultSetHeader>('UPDATE `daily` SET POA=COALESCE(?, POA), POP=COALESCE(?, POP), SKA=COALESCE(?, SKA), SKP=COALESCE(?, SKP), TMN=COALESCE(?, TMN), TMX=COALESCE(?, TMX) WHERE date=?', [poa[date] ?? null, pop[date] ?? null, ska[date] ?? null, skp[date] ?? null, tmn[date] ?? null, tmx[date] ?? null, date]);
       if (rows.affectedRows === 0) {
         const [rows, fields] = await conn.execute<ResultSetHeader>('INSERT INTO `daily` VALUES (?, COALESCE(?, POA), COALESCE(?, POP), COALESCE(?, SKA), COALESCE(?, SKP), COALESCE(?, TMN), COALESCE(?, TMX))', [date, poa[date] ?? null, pop[date] ?? null, ska[date] ?? null, skp[date] ?? null, tmn[date] ?? null, tmx[date] ?? null]);
