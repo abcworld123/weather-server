@@ -10,6 +10,8 @@ import type {
   ResKmaWeekTa,
   KmaWeekParams,
   KmaDayParams,
+  ResKmaDayVer,
+  KmaDayVerParams,
 } from 'types/kma';
 
 const baseUrl = 'http://apis.data.go.kr/1360000/';
@@ -81,6 +83,26 @@ export async function getDayLong(nx: string, ny: string) {
   } catch (err) {
     logError('KmaDayLong', err);
     return { success: false };
+  }
+}
+
+export async function getDayVer(dt: string, ftype: 'ODAM' | 'VSRT' | 'SHRT') {
+  const url = baseUrl + 'VilageFcstInfoService_2.0/getFcstVersion';
+  const params: KmaDayVerParams = {
+    serviceKey,
+    pageNo: 1,
+    numOfRows: 10,
+    dataType: 'json',
+    ftype: ftype,
+    basedatetime: dt,
+  };
+  try {
+    const { data } = await axios.get<ResKmaDayVer>(url, { params });
+    const item = data.response.body.items.item[0];
+    return item.version;
+  } catch (err) {
+    logError('KmaDayVer', err);
+    return null;
   }
 }
 

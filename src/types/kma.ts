@@ -1,9 +1,8 @@
-import type { ResDefault } from 'types/apis';
-
 // responses
 export type ResKmaDayNow = ResKmaApi<KmaDayNowData>;
 export type ResKmaDayShort = ResKmaApi<KmaDayShortData>;
 export type ResKmaDayLong = ResKmaApi<KmaDayLongData>;
+export type ResKmaDayVer = ResKmaApi<KmaDayVerData>;
 export type ResKmaWeekTa = ResKmaApi<KmaWeekTaData>;
 export type ResKmaWeekMl = ResKmaApi<KmaWeekMlData>;
 
@@ -19,6 +18,11 @@ export interface KmaDayParams extends KmaDefaultParams {
   base_time: string;
   nx: string | number;
   ny: string | number;
+}
+
+export interface KmaDayVerParams extends KmaDefaultParams {
+  ftype: 'ODAM' | 'VSRT' | 'SHRT';
+  basedatetime: string;
 }
 
 export interface KmaWeekParams extends KmaDefaultParams {
@@ -76,6 +80,12 @@ interface KmaDayLongData extends KmaDayDefault {
   fcstDate: string;
   fcstTime: string;
   fcstValue: string;
+}
+
+// 단기예보 버전 조회
+interface KmaDayVerData extends KmaDayDefault {
+  filetype: 'ODAM' | 'VSRT' | 'SHRT';
+  version: string;
 }
 
 // 중기기온예보

@@ -31,3 +31,10 @@ export function addDay(_date: string, amount: number) {
   const date = new Date(new Date(_date).getTime() + (dayMs * amount)).toISOString().replaceAll('-', '').slice(0, 8);
   return date;
 }
+
+export function getLogDateTime() {
+  const utcOffset = 32400000;
+  const ms = Date.now() + utcOffset;
+  const dt = new Date(ms).toISOString().replace('T', ' ').slice(0, 19);
+  return dt;
+}

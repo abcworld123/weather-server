@@ -30,8 +30,10 @@ export default async function updateDayNow() {
       }
     }
     await conn.commit();
+    return true;
   } catch (err) {
     logError('updateDayNow', err);
+    return false;
   } finally {
     conn.release();
   }

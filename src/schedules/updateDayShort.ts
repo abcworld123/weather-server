@@ -36,8 +36,10 @@ export default async function updateDayShort() {
       }
     }
     await conn.commit();
+    return true;
   } catch (err) {
     logError('updateDayShort', err);
+    return false;
   } finally {
     conn.release();
   }

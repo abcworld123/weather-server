@@ -77,8 +77,10 @@ export default async function updateDayLong() {
       }
     }
     await conn.commit();
+    return true;
   } catch (err) {
     logError('updateDayLong', err);
+    return false;
   } finally {
     conn.release();
   }

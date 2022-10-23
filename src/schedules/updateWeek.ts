@@ -29,8 +29,10 @@ export default async function updateWeek() {
       }
     }
     await conn.commit();
+    return true;
   } catch (err) {
     logError('updateWeek', err);
+    return false;
   } finally {
     conn.release();
   }
