@@ -11,6 +11,7 @@ const config = {
   key: {
     kma: process.env.KEY_KMA,
     ow: process.env.KEY_OW,
+    map: process.env.KEY_MAP,
   },
   reg: {
     nx: process.env.NX,

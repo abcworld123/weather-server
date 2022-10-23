@@ -87,4 +87,5 @@ export interface ResOwAll {
   current: Current;
   hourly: Hourly[];
   daily: Daily[];
+  region: string;  // 내가 추가함
 }

@@ -11,6 +11,7 @@ declare global {
     interface ProcessEnv {
       KEY_KMA: string;
       KEY_OW: string;
+      KEY_MAP: string;
       MYSQL_HOST: string;
       MYSQL_USER: string;
       MYSQL_PASSWORD: string;

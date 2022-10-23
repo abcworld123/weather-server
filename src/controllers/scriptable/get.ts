@@ -1,4 +1,5 @@
 import config from 'config';
+import { getRegionName } from 'services/get/kakao';
 import { getOnlyOw, getWithOw } from 'services/scriptable';
 import toXY from 'utils/toXY';
 import type { ReqScriptableGet, ResWithOwGet } from 'types/apis';
@@ -17,6 +18,8 @@ export default async function controller(req: Request<ReqScriptableGet>, res: Re
   } else {
     data = await getOnlyOw(lat, lon);
   }
+  const regionName = (await getRegionName(lat, lon)).address_name;
+  data.data.region = regionName;
   res.json(data);
 }
 
