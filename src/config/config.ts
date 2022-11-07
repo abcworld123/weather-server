@@ -18,6 +18,7 @@ const config = {
     ny: process.env.NY,
     ta: process.env.TA_REG,
     ml: process.env.ML_REG,
+    homeRegName: process.env.HOME_REG_NAME,
   },
 };
 

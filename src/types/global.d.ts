@@ -20,6 +20,7 @@ declare global {
       NY: string;
       TA_REG: string;
       ML_REG: string;
+      HOME_REG_NAME: string;
     }
   }
   // express

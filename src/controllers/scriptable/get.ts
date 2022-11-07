@@ -9,18 +9,20 @@ export default async function controller(req: Request<ReqScriptableGet>, res: Re
   const { nx, ny } = toXY(lat, lon);
   let data: ResWithOwGet;
 
-  if (nx === houseNx && ny === houseNy) {
+  if (nx === homeNx && ny === homeNy) {
     if (withOw) {
       data = await getWithOw(lat, lon);
     } else {
       data = await getWithOw(lat, lon);  // todo getOnlyKma
     }
+    data.data.region = homeRegName;
   } else {
     data = await getOnlyOw(lat, lon);
+    data.data.region = await getRegionName(lat, lon);
   }
-  data.data.region = await getRegionName(lat, lon);
   res.json(data);
 }
 
-const houseNx = parseInt(config.reg.nx);
-const houseNy = parseInt(config.reg.ny);
+const homeNx = parseInt(config.reg.nx);
+const homeNy = parseInt(config.reg.ny);
+const homeRegName = config.reg.homeRegName;
