@@ -8,8 +8,6 @@ export interface ReqScriptableGet {
   query: {
     lat: string;
     lon: string;
-    time: string;
-    withOw: boolean;
   };
 }
 
@@ -35,4 +33,33 @@ export interface RequestData {
 
 export interface ResponseData {
   // data?: any;
+}
+
+// python
+interface Current {
+  sky: string;
+  temp: number;
+  feelTemp: number;
+  humid: number;
+  wind: number;
+  rain: number;
+}
+
+interface Hourly {
+  skys: string[];
+  temps: number[];
+}
+
+interface Daily {
+  skys: string[];
+  mins: number[];
+  maxs: number[];
+}
+
+export interface PythonResult extends ResDefault {
+  data?: {
+    current: Current;
+    hourly: Hourly;
+    daily: Daily;
+  };
 }

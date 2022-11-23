@@ -1,2 +1,2 @@
-export { default as getOnlyOw } from './onlyOw';
-export { default as getWithOw } from './withOw';
+export { default as getHome } from './getHome';
+export { default as getNotHome } from './getNotHome';
