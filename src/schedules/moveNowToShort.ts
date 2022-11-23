@@ -1,4 +1,3 @@
-import config from 'config';
 import { pool } from 'libs/db';
 import { getDateTime } from 'utils/datetime';
 import { logError } from 'utils/logger';
