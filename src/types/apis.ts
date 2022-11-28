@@ -37,6 +37,7 @@ export interface ResponseData {
 
 // python
 interface Current {
+  id: number;
   sky: string;
   temp: number;
   feelTemp: number;
@@ -46,11 +47,13 @@ interface Current {
 }
 
 interface Hourly {
+  ids: number[];
   skys: string[];
   temps: number[];
 }
 
 interface Daily {
+  ids: number[];
   skys: string[];
   mins: number[];
   maxs: number[];
