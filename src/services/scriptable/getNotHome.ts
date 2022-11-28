@@ -6,7 +6,7 @@ import type { PythonResult } from 'types/apis';
 
 function python(region: string) {
   return new Promise<PythonResult>((resolve, reject) => {
-    const process = spawn('python', ['./src/services/scriptable/get_with_bs.py', region]);
+    const process = spawn('python3', [__dirname + '/get_with_bs.py', region]);
     process.stdout.on('data', (data) => {
       const ret = {
         success: true,
