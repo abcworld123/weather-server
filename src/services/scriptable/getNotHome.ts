@@ -1,5 +1,4 @@
 import { spawn } from 'child_process';
-import { getRegionName } from 'services/get/kakao';
 import { getAll } from 'services/get/ow';
 import { logError } from 'utils/logger';
 import type { PythonResult } from 'types/apis';
@@ -20,9 +19,8 @@ function python(region: string) {
   });
 }
 
-export default async function getNotHome(lat: string, lon: string) {
+export default async function getNotHome(lat: string, lon: string, region: string) {
   try {
-    const region = await getRegionName(lat, lon);
     const { data: data1, success: success1 } = await getAll(lat, lon);
     if (!success1) throw new Error('getAll error');
     const { data: data2, success: success2 } = await python(region);

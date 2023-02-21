@@ -5,7 +5,7 @@ import { getDateTime } from 'utils/datetime';
 import { logError } from 'utils/logger';
 import type { Daily, Hourly } from 'types/db';
 
-export default async function getHome(lat: string, lon: string) {
+export default async function getHome(lat: string, lon: string, region: string) {
   const conn = await pool.getConnection();
   try {
     const { dt, d: date } = getDateTime('0000', '0100', '0000');
@@ -50,7 +50,7 @@ export default async function getHome(lat: string, lon: string) {
       ow.weather[0].ska = parseInt(kma.SKA);
       ow.weather[0].skp = parseInt(kma.SKP);
     }
-    data.region = homeRegName;
+    data.region = region;
     return { success: true, data };
   } catch (err) {
     logError('getWithOw', err);
@@ -60,7 +60,6 @@ export default async function getHome(lat: string, lon: string) {
   }
 }
 
-const homeRegName = config.reg.homeRegName;
 const description = {
   '10': '맑음',
   '30': '구름 많음',
